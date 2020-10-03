@@ -87,34 +87,35 @@ def kill():
 
 
 def mutate(baby):
-    baby=baby.copy()
+    baby = baby.copy()
     gene = randint(0, len(baby) - 1)
     baby[gene] = (baby[gene] + 1) % 2
     print('Mutated baby')
     check_baby(baby)
 
 
-for i in range(5):
-    print('{} cycle'.format(i + 1))
-    print_population()
-    first, second = choose_parents()
-    print("First parent: ")
-    print(first)
-    print("Second parent: ")
-    print(second)
+if __name__ == '__main__':
+    for i in range(5):
+        print('{} cycle'.format(i + 1))
+        print_population()
+        first, second = choose_parents()
+        print("First parent: ")
+        print(first)
+        print("Second parent: ")
+        print(second)
 
-    babies = []
-    print('First baby')
-    babies.append(crossing(first, second))
-    print('Second baby')
-    babies.append(crossing(second, first))
-    if i % 2 == 0:
-        for baby in babies:
-            mutate(baby)
+        babies = []
+        print('First baby')
+        babies.append(crossing(first, second))
+        print('Second baby')
+        babies.append(crossing(second, first))
+        if i % 2 == 0:
+            for baby in babies:
+                mutate(baby)
 
-    population.sort(key=sorting)
-    print_population()
-    print('Killing')
-    kill()
-    print_population()
-    print('-'*80)
+        population.sort(key=sorting)
+        print_population()
+        print('Killing')
+        kill()
+        print_population()
+        print('-' * 80)
