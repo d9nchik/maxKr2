@@ -38,13 +38,13 @@ def print_animal(animal):
 
 
 def count_solution_price_and_weight(animal):
-    totalPrice = 0
-    totalWeight = 0
+    total_price = 0
+    total_weight = 0
     for x in zip(animal, items):
         if x[0] == 1:
-            totalPrice += x[1][0]
-            totalWeight += x[1][1]
-    return totalPrice, totalWeight
+            total_price += x[1][0]
+            total_weight += x[1][1]
+    return total_price, total_weight
 
 
 def sorting(animal):
@@ -58,16 +58,16 @@ def choose_parents():
 
 
 # should be done two times
-def crossing(firstParent, secondParent):
+def crossing(first_parent, second_parent):
     baby = []
-    isFirst = True
+    is_first = True
     for x in range(len(population[0])):
-        if isFirst:
-            baby.append(firstParent[len(baby)])
+        if is_first:
+            baby.append(first_parent[len(baby)])
         else:
-            baby.append(secondParent[len(baby)])
+            baby.append(second_parent[len(baby)])
         if (x + 1) in pointsOfSplitting:
-            isFirst = not isFirst
+            is_first = not is_first
     check_baby(baby)
     return baby
 
@@ -110,8 +110,8 @@ if __name__ == '__main__':
         print('Second baby')
         babies.append(crossing(second, first))
         if i % 2 == 0:
-            for baby in babies:
-                mutate(baby)
+            for babe in babies:
+                mutate(babe)
 
         population.sort(key=sorting)
         print_population()
