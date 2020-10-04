@@ -38,11 +38,18 @@ class Ant:
         unvisited.remove(current_point)
         self.path.append(current_point)
         while (len(unvisited) > 0):
+            Ant.display_unvisited(current_point, unvisited)
             unvisited.sort(key=lambda e: Ant.calculate_need_to_go(current_point, e), reverse=True)
             current_point = unvisited[0]
+            print('Choose {}'.format(current_point))
             unvisited.remove(current_point)
             self.path.append(current_point)
         self.length = Ant.calculate_path_length(self.path)
+
+    @staticmethod
+    def display_unvisited(previous, unvisited):
+        for node in unvisited:
+            print('{}) = {}'.format(node, Ant.calculate_need_to_go(previous, node)))
 
     @staticmethod
     def calculate_path_length(path):
@@ -56,3 +63,29 @@ class Ant:
     @staticmethod
     def calculate_need_to_go(i, j):
         return (pheromone_matrix[i][j] ** L) * ((1 / distance_matrix[i][j]) ** B)
+
+
+def display_pheromone():
+    for line in pheromone_matrix:
+        print(line)
+
+
+def blow_out_pheromone():
+    for x in range(len(pheromone_matrix)):
+        for y in range(len(pheromone_matrix[x])):
+            pheromone_matrix[x][y] *= (1 - Y)
+
+
+if __name__ == '__main__':
+    path=[]
+    ant = Ant(0)
+    for x in range(3):
+        ant.come_through_path()
+        blow_out_pheromone()
+        display_pheromone()
+        ant.spread_pheromone()
+        if ant.length < Lmin:
+            Lmin =ant.length
+            path=ant.path
+        display_pheromone()
+    print('Path: {}'.format(path))
