@@ -34,10 +34,10 @@ class Ant:
     def come_through_path(self):
         self.path = []
         current_point = self.start_point
-        unvisited = [x for x in range(len(distance_matrix))]
+        unvisited = [y for y in range(len(distance_matrix))]
         unvisited.remove(current_point)
         self.path.append(current_point)
-        while (len(unvisited) > 0):
+        while len(unvisited) > 0:
             Ant.display_unvisited(current_point, unvisited)
             unvisited.sort(key=lambda e: Ant.calculate_need_to_go(current_point, e), reverse=True)
             current_point = unvisited[0]
@@ -52,10 +52,10 @@ class Ant:
             print('{}) = {}'.format(node, Ant.calculate_need_to_go(previous, node)))
 
     @staticmethod
-    def calculate_path_length(path):
-        current_position = path[-1]
+    def calculate_path_length(path_value):
+        current_position = path_value[-1]
         length = 0
-        for node in path:
+        for node in path_value:
             length += distance_matrix[current_position][node]
             current_position = node
         return length
@@ -68,14 +68,14 @@ class Ant:
 def display_pheromone():
     for line in pheromone_matrix:
         for value in line:
-            print('%.4f' % (value), end=' ')
+            print('%.4f' % value, end=' ')
         print()
 
 
 def blow_out_pheromone():
-    for x in range(len(pheromone_matrix)):
-        for y in range(len(pheromone_matrix[x])):
-            pheromone_matrix[x][y] *= (1 - Y)
+    for line in range(len(pheromone_matrix)):
+        for y in range(len(pheromone_matrix[line])):
+            pheromone_matrix[line][y] *= (1 - Y)
 
 
 if __name__ == '__main__':
