@@ -67,7 +67,9 @@ class Ant:
 
 def display_pheromone():
     for line in pheromone_matrix:
-        print(line)
+        for value in line:
+            print('%.4f' % (value), end=' ')
+        print()
 
 
 def blow_out_pheromone():
@@ -77,15 +79,18 @@ def blow_out_pheromone():
 
 
 if __name__ == '__main__':
-    path=[]
+    path = []
     ant = Ant(0)
     for x in range(3):
+        print('{} cycle'.format(x + 1))
         ant.come_through_path()
         blow_out_pheromone()
         display_pheromone()
         ant.spread_pheromone()
         if ant.length < Lmin:
-            Lmin =ant.length
-            path=ant.path
+            Lmin = ant.length
+            path = ant.path
+            print('New Lmin={}, path={}'.format(Lmin, path))
         display_pheromone()
-    print('Path: {}'.format(path))
+        print('-' * 60)
+    print('Path: {}; Lmin={}'.format(path, Lmin))
