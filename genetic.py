@@ -1,7 +1,7 @@
 from random import randint
 
-pointsOfSplitting = [2, 5, 9]
-sizeOfRuicksack = 14
+pointsOfSplitting = [2, 6, 9]
+sizeOfRuicksack = 16
 # Check information about mutation, cycles
 # and about choosing pattern
 # Array of items [price, weight]
@@ -19,7 +19,7 @@ items = [[5, 2],
 population = [[1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
               [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
               [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-              [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
               [0, 0, 1, 0, 0, 0, 0, 1, 1, 0]]
 
 maxAnimals = len(population)

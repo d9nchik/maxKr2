@@ -6,7 +6,7 @@ distance_matrix = [[inf, 23, 20, 4, 12],
                    [18, 13, 3, 10, inf]]
 L = 3  # alfa
 B = 2  # betta
-Y = 0.3  # gamma
+Y = 0.7  # gamma
 pheromone_matrix = [[0, 0.2, 0.1, 0.1, 0.2],
                     [0.1, 0, 0.3, 0.2, 0.1],
                     [0.3, 0.3, 0, 0.3, 0.3],
@@ -81,7 +81,7 @@ def blow_out_pheromone():
 if __name__ == '__main__':
     path = []
     ant = Ant(0)
-    for x in range(3):
+    for x in range(2):
         print('{} cycle'.format(x + 1))
         ant.come_through_path()
         blow_out_pheromone()
