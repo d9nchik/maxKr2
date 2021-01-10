@@ -14,6 +14,9 @@ pheromone_matrix = [[0, 0.2, 0.1, 0.1, 0.2],
                     [0.2, 0.3, 0.1, 0.3, 0]]
 
 Lmin = 57 + 5
+# edges should start from 1
+ants_start_point = [2, 3]
+iteration_number = 1
 
 
 class Ant:
@@ -80,17 +83,30 @@ def blow_out_pheromone():
 
 if __name__ == '__main__':
     path = []
-    ant = Ant(0)
-    for x in range(2):
+    # our edges should start from 0
+    ants_start_point = list(map(lambda x: x - 1, ants_start_point))
+    ants = list(map(lambda start_point: Ant(start_point), ants_start_point))
+    for x in range(iteration_number):
         print('{} cycle'.format(x + 1))
-        ant.come_through_path()
+
+        for y in range(len(ants)):
+            ant = ants[y]
+            print('\nAnt number {}'.format(y + 1))
+            ant.come_through_path()
+
         blow_out_pheromone()
         display_pheromone()
-        ant.spread_pheromone()
-        if ant.length < Lmin:
-            Lmin = ant.length
-            path = ant.path
-            print('New Lmin={}, path={}'.format(Lmin, path))
+
+        for y in range(len(ants)):
+            ant = ants[y]
+            print('\nAnt number {}'.format(y + 1))
+            ant.spread_pheromone()
+
+        for ant in ants:
+            if ant.length < Lmin:
+                Lmin = ant.length
+                path = ant.path
+                print('New Lmin={}, path={}'.format(Lmin, path))
         display_pheromone()
         print('-' * 60)
     print('Path: {}; Lmin={}'.format(path, Lmin))
