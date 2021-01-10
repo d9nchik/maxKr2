@@ -92,6 +92,36 @@ def natural_merge(array):
     return natural_merge(c)
 
 
+def balanced_poly_path_merge(array, number_of_files=3):
+    files = []
+    for x in range(number_of_files):
+        files.append([])
+
+    for x in range(len(array)):
+        files[x % number_of_files].append(array[x])
+
+    print('files before sort: {}'.format(files))
+    for file in files:
+        file.sort()
+    print('files after sort: {}'.format(files))
+
+    c = []
+    while len(c) != len(array):
+        values = []
+        for file in files:
+            if len(file) == 0:
+                del file
+            else:
+                values.append(file[0])
+
+        next_value = min(values)
+        files[values.index(next_value)].pop(0)
+        c.append(next_value)
+
+    return c
+
+
 if __name__ == '__main__':
     # print(direct_merge(array))
-    print(natural_merge(array))
+    # print(natural_merge(array))
+    print(balanced_poly_path_merge(array))
