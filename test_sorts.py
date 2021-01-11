@@ -20,6 +20,13 @@ class Test(TestCase):
         fibonacci4 = sorts.fibonacci_n(4)
         self.assertEqual(fibonacci4(11), 31)
         self.assertEqual(fibonacci4(1), 0)
-    #
-    # def test_print_ideal_division(self):
-    #     self.fail()
+
+    def test_get_ideal_division(self):
+        expected_list = [[1, 0, 0, 0, 0],
+                         [1, 1, 1, 1, 1],
+                         [2, 2, 2, 2, 1],
+                         [4, 4, 4, 3, 2],
+                         [8, 8, 7, 6, 4],
+                         [16, 15, 14, 12, 8]]
+        got = sorts.get_ideal_division(5, 6)
+        self.assertListEqual(got[5], expected_list[5])

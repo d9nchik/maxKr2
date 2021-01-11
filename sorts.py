@@ -146,7 +146,7 @@ def fibonacci_n(n):
     return fibonacci
 
 
-def print_ideal_division(n, depth=10):
+def get_ideal_division(n, depth=10):
     fibonacci = fibonacci_n(n - 1)
 
     # formula for getting  a_k(L)
@@ -157,9 +157,19 @@ def print_ideal_division(n, depth=10):
         return sum
 
     # printing table
+    ideal_division = []
     for x in range(depth):
+        ideal_row_division = []
         for y in range(n):
-            print(get_a(y + 1, x), end='\t')
+            ideal_row_division.append(get_a(y + 1, x))
+        ideal_division.append(ideal_row_division)
+    return ideal_division
+
+
+def pretty_print(array):
+    for row in array:
+        for element in row:
+            print(element, end='\t')
         print()
 
 
@@ -170,4 +180,4 @@ if __name__ == '__main__':
     # fibonacci = fibonacci_n(4)
     # for x in range(5):
     #     print(fibonacci(x + 1))
-    print_ideal_division(5)
+    pretty_print(get_ideal_division(5))
