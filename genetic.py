@@ -1,3 +1,4 @@
+import itertools
 from random import randint
 
 pointsOfSplitting = [2, 6, 9]
@@ -59,17 +60,14 @@ def choose_parents():
 
 # should be done two times
 def crossing(first_parent, second_parent):
-    baby = []
-    is_first = True
-    for x in range(len(population[0])):
-        if is_first:
-            baby.append(first_parent[len(baby)])
-        else:
-            baby.append(second_parent[len(baby)])
-        if (x + 1) in pointsOfSplitting:
-            is_first = not is_first
-    check_baby(baby)
-    return baby
+    babies = [first_parent[:pointsOfSplitting[0]], second_parent[:pointsOfSplitting[0]]]
+    for x in range(1, len(pointsOfSplitting)):
+        firstHalf = list(
+            map(lambda baby: baby + first_parent[pointsOfSplitting[x - 1]:pointsOfSplitting[x]], babies[:]))
+        secondHalf = list(
+            map(lambda baby: baby + first_parent[pointsOfSplitting[x - 1]:pointsOfSplitting[x]], babies[:]))
+        babies = firstHalf + secondHalf
+    return babies
 
 
 def check_baby(baby):
@@ -80,10 +78,11 @@ def check_baby(baby):
         population.append(baby)
 
 
-def kill():
-    population.sort(key=sorting)
-    for x in range(len(population) - maxAnimals):
-        del population[-1]
+def kill(population_to_clean):
+    population_to_clean = list(k for k, _ in itertools.groupby(sorted(population_to_clean, key=sorting)))
+    for x in range(len(population_to_clean) - maxAnimals):
+        del population_to_clean[-1]
+    return population_to_clean
 
 
 def mutate(baby):
@@ -104,11 +103,10 @@ if __name__ == '__main__':
         print("Second parent: ")
         print(second)
 
-        babies = []
-        print('First baby')
-        babies.append(crossing(first, second))
-        print('Second baby')
-        babies.append(crossing(second, first))
+        babies = crossing(first, second)
+        for x in range(len(babies)):
+            print('Baby number: {}'.format(x))
+            check_baby(babies[x])
         if i % 2 == 0:
             for babe in babies:
                 mutate(babe)
@@ -116,6 +114,6 @@ if __name__ == '__main__':
         population.sort(key=sorting)
         print_population()
         print('Killing')
-        kill()
+        population = kill(population)
         print_population()
         print('-' * 80)
