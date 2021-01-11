@@ -22,9 +22,10 @@ population = [[1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
               [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
               [0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
               [0, 0, 1, 0, 0, 0, 0, 1, 1, 0]]
-
+# setup the algorithm
 maxAnimals = len(population)
-
+if pointsOfSplitting[-1] != len(population[0]):
+    pointsOfSplitting.append(len(population[0]))
 
 def print_population():
     print('Population:')
