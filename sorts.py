@@ -1,7 +1,16 @@
+from typing import List
+
 array = [8, 23, 5, 65, 44, 33, 1, 6]
 
 
-def direct_merge(array, k=0):
+def direct_merge(array: List[float], k: int = 0):
+    """
+    Direct merge sort
+
+    :param array: array to be sorted
+    :param k: this parameter for recursive call(don't provide it)
+    :return: sorted array
+    """
     two_power_k = 2 ** k
     if two_power_k >= len(array):
         print('The end')
@@ -52,7 +61,13 @@ def direct_merge(array, k=0):
     return direct_merge(c, k + 1)
 
 
-def natural_merge(array):
+def natural_merge(array: List[float]):
+    """
+    Natural merge sort
+
+    :param array: array to be sorted
+    :return: sorted array
+    """
     arrays = [[], []]
     previous_value = float('-inf')
     for element in array:
@@ -98,7 +113,14 @@ def natural_merge(array):
     return natural_merge(c)
 
 
-def balanced_poly_path_merge(array, number_of_files=3):
+def balanced_poly_path_merge(array: List[float], number_of_files: int = 3):
+    """
+    Balanced poly path merge
+
+    :param array: array to be sorted
+    :param number_of_files: how many file you need to use (default 3)
+    :return: sorted array
+    """
     files = []
     for x in range(number_of_files):
         files.append([])
@@ -127,13 +149,25 @@ def balanced_poly_path_merge(array, number_of_files=3):
     return c
 
 
-def fibonacci_n(n):
+def fibonacci_n(n: int):
+    """
+    Fibonacci n-order
+
+    :param n: order
+    :return: function that calculates fibonacci of order n of x argument
+    """
     array = []
     for x in range(n):
         array.append(0)
     array.append(1)
 
-    def fibonacci(number):
+    def fibonacci(number: int):
+        """
+        fibonacci
+
+        :param number: n member
+        :return: result of function in this point
+        """
         try:
             return array[number - 1]
         except IndexError:
@@ -146,11 +180,25 @@ def fibonacci_n(n):
     return fibonacci
 
 
-def get_ideal_division(n, depth=10):
+def get_ideal_division(n: int, depth: int = 10):
+    """
+    Get ideal division - useful for Multiphase sorting
+
+    :param n: number of files
+    :param depth: which depth you want to have
+    :return: matrix of size n by depth
+    """
     fibonacci = fibonacci_n(n - 1)
 
     # formula for getting  a_k(L)
-    def get_a(k, L):
+    def get_a(k: int, L: int):
+        """
+        get_a
+
+        :param k: number of row (starting from 1)
+        :param L: number of column (starting from 0)
+        :return: value a of to order k
+        """
         sum = 0
         for fibonacci_index in range(max(L + k - 1, 0), L + n):
             sum += fibonacci(fibonacci_index)
@@ -166,7 +214,7 @@ def get_ideal_division(n, depth=10):
     return ideal_division
 
 
-def pretty_print(array):
+def pretty_print(array: List[List[int]]):
     for row in array:
         for element in row:
             print(element, end='\t')
@@ -177,7 +225,4 @@ if __name__ == '__main__':
     # print(direct_merge(array))
     # print(natural_merge(array))
     # print(balanced_poly_path_merge(array))
-    # fibonacci = fibonacci_n(4)
-    # for x in range(5):
-    #     print(fibonacci(x + 1))
     pretty_print(get_ideal_division(5))
