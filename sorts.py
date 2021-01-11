@@ -88,6 +88,12 @@ def natural_merge(array):
             previous_value_b = b.pop(0)
             c.append(previous_value_b)
 
+    while len(a) > 0:
+        c.append(a.pop(0))
+
+    while len(b) > 0:
+        c.append(b.pop(0))
+
     print('array after merge = {}'.format(c))
     return natural_merge(c)
 
