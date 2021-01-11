@@ -116,7 +116,7 @@ def balanced_poly_path_merge(array, number_of_files=3):
         values = []
         for file in files:
             if len(file) == 0:
-                del file
+                values.append(float('inf'))
             else:
                 values.append(file[0])
 
