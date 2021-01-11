@@ -3,7 +3,7 @@ from unittest import TestCase
 
 class Test(TestCase):
     def test(self):
-        self.assertTrue(1 == 1)
+        self.assertTrue(1 == 2)
 #     def test_direct_merge(self):
 #         self.fail()
 #
