@@ -121,7 +121,47 @@ def balanced_poly_path_merge(array, number_of_files=3):
     return c
 
 
+def fibonacci_n(n):
+    array = []
+    for x in range(n):
+        array.append(0)
+    array.append(1)
+
+    def fibonacci(number):
+        try:
+            return array[number - 1]
+        except IndexError:
+            sum = 0
+            for x in range(number - n - 1, number):
+                sum += fibonacci(x)
+            array.append(sum)
+            return sum
+
+    return fibonacci
+
+
+def print_ideal_division(n, depth=10):
+    fibonacci = fibonacci_n(n - 1)
+
+    # formula for getting  a_k(L)
+    def get_a(k, L):
+        sum = 0
+        for fibonacci_index in range(max(L + k - 1, 0), L + n):
+            sum += fibonacci(fibonacci_index)
+        return sum
+
+    # printing table
+    for x in range(depth):
+        for y in range(n):
+            print(get_a(y + 1, x), end='\t')
+        print()
+
+
 if __name__ == '__main__':
     # print(direct_merge(array))
     # print(natural_merge(array))
-    print(balanced_poly_path_merge(array))
+    # print(balanced_poly_path_merge(array))
+    # fibonacci = fibonacci_n(4)
+    # for x in range(5):
+    #     print(fibonacci(x + 1))
+    print_ideal_division(5)
